@@ -13,11 +13,12 @@ ADD 25norecommends /etc/apt/apt.conf.d/25norecommends
 RUN locale-gen en_US en_US.UTF-8
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y lsb-release aptitude vim postfix
-RUN apt-get install -y openssh-server 
+RUN apt-get install -y aptitude
+RUN aptitude install -y lsb-release aptitude postfix
+RUN aptitude install -y openssh-server 
 
 # clean packages
-RUN apt-get clean
+RUN aptitude clean
 RUN rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # make /var/run/sshd
