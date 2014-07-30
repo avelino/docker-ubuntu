@@ -15,7 +15,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y aptitude
 RUN aptitude install -y lsb-release aptitude postfix
-RUN aptitude install -y openssh-server 
+RUN aptitude install -y openssh-server supervisor 
 
 # clean packages
 RUN aptitude clean
@@ -24,5 +24,11 @@ RUN rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 # make /var/run/sshd
 RUN mkdir /var/run/sshd
 
+# copy supervisor conf
+ADD sshd.conf /etc/supervisor/conf.d/sshd.conf
+
 # expose ssh port
 EXPOSE 22
+
+# start supervisor
+CMD ["/usr/bin/supervisord"]
